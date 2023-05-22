@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "cloudwatch:GetMetricData",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "pricing:GetProducts",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "pricing:DescribeServices",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "pricing:GetAttributeValues",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "fsx:DescribeFileSystems",
+            "Resource": "*"
+        }
+    ]
+}
