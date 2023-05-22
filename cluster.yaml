@@ -1,0 +1,73 @@
+Region: <REGION>
+Image:
+  Os: ubuntu2004
+HeadNode:
+  InstanceType: m6i.large
+  Networking:
+    SubnetId: <HeadNode_Subnet>
+    AdditionalSecurityGroups:
+      - <ADDITIONAL_HEAD_NODE_SG>
+  Ssh:
+    KeyName: <Key_Name>
+    AllowedIps: <Allowed_Ips>
+  Iam:
+    AdditionalIamPolicies:
+      - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      - Policy: arn:aws:iam::aws:policy/CloudWatchLogsReadOnlyAccess
+      - Policy: <ADDITIONAL_HEAD_NODE_POLICY>
+    S3Access:
+      - BucketName: <BUCKET_NAME>
+        EnableWriteAccess: false
+  CustomActions:
+    OnNodeConfigured:
+      Script: s3://<BUCKET_NAME>/post_install.sh
+Scheduling:
+  Scheduler: slurm
+  SlurmSettings:
+    QueueUpdateStrategy: DRAIN
+  SlurmQueues:
+  - Name: compute
+    ComputeResources:
+    - Name: cpu
+      InstanceType: c6i.large
+      MinCount: 0
+      MaxCount: 5
+    Networking:
+      SubnetIds:
+        - <Compute_Subnet>
+    Iam:
+      AdditionalIamPolicies:
+        - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - Policy: <ADDITIONAL_COMPUTE_NODE_POLICY>
+      S3Access:
+        - BucketName: <BUCKET_NAME>
+          EnableWriteAccess: false
+    CustomActions:
+      OnNodeConfigured:
+        Script: s3://<BUCKET_NAME>/post_install.sh
+  - Name: gpu
+    ComputeResources:
+    - Name: gpu
+      InstanceType: g4dn.xlarge
+      MinCount: 0
+      MaxCount: 5
+    Networking:
+      SubnetIds:
+        - <Compute_Subnet>
+    Iam:
+      AdditionalIamPolicies:
+        - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - Policy: <ADDITIONAL_COMPUTE_NODE_POLICY>
+      S3Access:
+        - BucketName: <BUCKET_NAME>
+          EnableWriteAccess: false
+    CustomActions:
+      OnNodeConfigured:
+        Script: s3://<BUCKET_NAME>/post_install.sh
+SharedStorage:
+  - MountDir: /data_lustre
+    Name: fsx-lustre-data
+    StorageType: FsxLustre
+    FsxLustreSettings:
+      StorageCapacity: 1200
+      DeploymentType: SCRATCH_2
