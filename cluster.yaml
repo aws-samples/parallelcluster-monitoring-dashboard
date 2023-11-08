@@ -4,12 +4,12 @@ Image:
 HeadNode:
   InstanceType: m6i.large
   Networking:
-    SubnetId: <HeadNode_Subnet>
+    SubnetId: <HEADNODE_SUBNET>
     AdditionalSecurityGroups:
       - <ADDITIONAL_HEAD_NODE_SG>
   Ssh:
-    KeyName: <Key_Name>
-    AllowedIps: <Allowed_Ips>
+    KeyName: <KEY_NAME>
+    AllowedIps: <ALLOWED_IPS>
   Iam:
     AdditionalIamPolicies:
       - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
@@ -34,7 +34,7 @@ Scheduling:
       MaxCount: 5
     Networking:
       SubnetIds:
-        - <Compute_Subnet>
+        - <COMPUTE_SUBNET>
     Iam:
       AdditionalIamPolicies:
         - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
