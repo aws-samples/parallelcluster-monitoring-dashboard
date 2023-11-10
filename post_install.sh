@@ -9,7 +9,7 @@
 
 . "/etc/parallelcluster/cfnconfig"
 
-script_bucket=$(echo $cfn_postinstall | sed "s/s3:\/\///g;s/\/.*//")
+script_bucket=$(dirname $(grep Script /opt/parallelcluster/shared/cluster-config.yaml | head -1 | awk -F's3://' '{print $2}'))
 
 PATH=$PATH:/opt/slurm/bin
 
