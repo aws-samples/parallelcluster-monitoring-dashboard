@@ -37,4 +37,4 @@ This project is build with the following components:
 Note: *while almost all components are under the Apache2 license, only **[Prometheus-Slurm-Exporter is licensed under GPLv3](https://github.com/vpenso/prometheus-slurm-exporter/blob/master/LICENSE)**, you need to be aware of it and accept the license terms before proceeding and installing this component.*
 
 
-Link for the deployment steps: https://apg-library.amazonaws.com/content/a2132c94-98e0-4b90-8be0-99ebfa546442
+Link for the deployment steps: [https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/set-up-a-grafana-monitoring-dashboard-for-aws-parallelcluster.html](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/set-up-a-grafana-monitoring-dashboard-for-aws-parallelcluster.html)
