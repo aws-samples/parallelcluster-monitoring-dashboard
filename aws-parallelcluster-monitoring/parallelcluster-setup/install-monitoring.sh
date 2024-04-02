@@ -116,8 +116,10 @@ case "${cfn_node_type}" in
 		# More info here: https://github.com/vpenso/prometheus-slurm-exporter/blob/master/LICENSE
 		cd ${monitoring_home}
 		git clone --branch development https://github.com/vpenso/prometheus-slurm-exporter.git
+        export HOME=/root
+        git config --global --add safe.directory ${monitoring_home}/prometheus-slurm-exporter
 		cd prometheus-slurm-exporter
-                sed -i 's/NodeList,AllocMem,Memory,CPUsState,StateLong/NodeList: ,AllocMem: ,Memory: ,CPUsState: ,StateLong:/' node.go
+        sed -i 's/NodeList,AllocMem,Memory,CPUsState,StateLong/NodeList: ,AllocMem: ,Memory: ,CPUsState: ,StateLong:/' node.go
 		GOPATH=/root/go-modules-cache HOME=/root go mod download
 		GOPATH=/root/go-modules-cache HOME=/root go build
 		mv ${monitoring_home}/prometheus-slurm-exporter/prometheus-slurm-exporter /usr/bin/prometheus-slurm-exporter
