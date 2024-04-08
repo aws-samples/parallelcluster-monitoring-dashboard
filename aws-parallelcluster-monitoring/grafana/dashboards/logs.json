@@ -359,7 +359,7 @@
       "timeShift": null,
       "title": "cloud-init",
       "type": "logs"
-    }
+    },
     {
       "collapsed": false,
       "datasource": null,
