@@ -137,6 +137,8 @@ update=0
 tag_userid=""
 tag_jobid=""
 
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+
 if [ ! -f /tmp/jobs/jobs_users ] || [ ! -f /tmp/jobs/jobs_ids ]; then
   exit 0
 fi
@@ -171,7 +173,7 @@ fi
 
 if [ \$update -eq 1 ]; then
   # Instance ID
-  MyInstID=\$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+  MyInstID=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/instance-id)
   tag_userid=\$(cat /tmp/jobs/tag_userid)
   tag_jobid=\$(cat /tmp/jobs/tag_jobid)
   aws ec2 create-tags --resources \$MyInstID --tags Key=UserID,Value="\$tag_userid" --region=$cfn_region
